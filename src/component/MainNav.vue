@@ -1,0 +1,156 @@
+<script>
+
+export default{
+  name: "MainNav",
+  components: {
+
+  },
+  data(){
+    // Must return a plain JavaScript object
+    return{
+      menuItems: [
+        {
+          text: "Resumé",
+          url: "/resume"
+        },
+        {
+          text: "Skills",
+          url: "/skills"
+        },
+        {
+          text: "Contact",
+          url: "/contact"
+        },
+      ],
+      projectsMobileDropdownVisible: false
+    }
+  },
+  methods: {
+    toggleProjectsMobileDropdownVisibility(){
+      this.projectsMobileDropdownVisible = !this.projectsMobileDropdownVisible;
+    }
+  }
+}
+</script>
+
+<template>
+  <header class="w-full text-sm h-16">
+    <div class="fixed top-0 left-0 w-full h-16 bg-peach-black z-10">
+      <!-- h-full == full height of parent -->
+      <!-- border-b == bottom border 1 pixel in length-->
+      <!-- mx-auto == margin-auto, center content in the parent -->
+      <div class="flex h-full flex-nowrap border-b border-solid border-peach-pink px-2 md:px-8 mx-auto">
+        <!-- :href == v-bind:href, v-bind not technically necessary -->
+        <router-link to="/" class="flex h-full items-center text-l md:text-xl text-peach-pink md:text-white">
+          Matthew Peach
+        </router-link>
+
+        <!---------------- START of code for Medium and Larger screens ------------------------>
+        <nav class="hidden md:flex ml-6 md:ml-12 h-full">
+          <!-- list-none == Do not add dots next to list elements -->
+          <ul class="flex h-full list-none text-md md:text-lg text-white">
+            <!-- v-for == Vue for-loop -->
+            <!-- first:ml-0 == only apply this to the first element-->
+            <li v-for="menuItem in menuItems" v-bind:key="menuItem.text" class="ml-9 h-full first:ml-0">
+              <!-- menuItem is replaced -->
+              <router-link v-bind:to="menuItem.url" class="flex h-full items-center py-2.5">
+                {{menuItem.text}}
+              </router-link>
+            </li>
+
+            <!-- Projects Dropdown Menu -->
+            <li class="flex ml-9 h-full items-center py-2.5">
+              <div class="relative group">
+                <router-link to="/projects">
+                  Projects
+                </router-link>
+                <div class="items-center absolute rounded-b-lg p-1 bg-peach-black p-2 invisible group-hover:visible w-auto">
+                  <router-link to="/projects/aerial">
+                    Aerial Image Classifier
+                  </router-link>
+                  <hr class="border-t mx-2 border-grey-light">
+                  <router-link to="/projects/cryptography">
+                    Cryptography
+                  </router-link>
+                  <hr class="border-t mx-2 border-grey-light">
+                  <router-link to="/projects/game">
+                    Game
+                  </router-link>
+                </div>
+              </div>
+            </li>
+            <!-- End of Projects Dropdown Menu -->
+          </ul>
+        </nav>
+        <!---------------- END of code for Medium and Larger screens ------------------------>
+
+        <!---------------- START of code for Small screens ------------------------>
+        <nav class="flex md:hidden ml-3 md:ml-12 h-full">
+          <!-- list-none == Do not add dots next to list elements -->
+          <ul class="flex h-full list-none text-md md:text-lg text-white">
+            <!-- v-for == Vue for-loop -->
+            <!-- first:ml-0 == only apply this to the first element-->
+            <li v-for="menuItem in menuItems" v-bind:key="menuItem.text" class="ml-3 h-full first:ml-0">
+              <!-- menuItem is replaced -->
+              <router-link v-bind:to="menuItem.url" class="flex h-full items-center py-2.5">
+                {{menuItem.text}}
+              </router-link>
+            </li>
+            <li>
+              <button @click="toggleProjectsMobileDropdownVisibility()" class="ml-3 h-full">
+                Projects
+              </button>
+            </li>
+          </ul>
+
+
+          <div v-if="projectsMobileDropdownVisible" class="absolute justify-items-center rounded-b-xl bg-peach-black text-white p-2 top-16 z-10 right-0">
+            <ul>
+              <li>
+                <router-link to="/projects/aerial">
+                  Aerial Image Classifier
+                </router-link>
+              </li>
+              <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
+              <li>
+                <router-link to="/projects/cryptography">
+                  Cryptography
+                </router-link>
+              </li>
+              <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
+              <li>
+                <router-link to="/projects/game">
+                  Game
+                </router-link>
+              </li>
+            </ul>
+
+
+            <!----- Dropdown Options ----->
+            <!--                <div class="dropdown-content ml-0">-->
+            <!--                  <router-link to="/projects/aerial" class="block whitespace-nowrap overflow-hidden overflow-ellipsis">-->
+            <!--                    Aerial Image Classifier-->
+            <!--                  </router-link>-->
+            <!--                  <hr class="border-t mx-2 pt-2 pb-2 border-grey-light">-->
+            <!--                  <router-link to="/projects/cryptography">-->
+            <!--                    Cryptography-->
+            <!--                  </router-link>-->
+            <!--                  <hr class="border-t mx-2 pt-2 pb-2 border-grey-light">-->
+            <!--                  <router-link to="/projects/game">-->
+            <!--                    Game-->
+            <!--                  </router-link>-->
+            <!--                </div>-->
+          </div>
+          <!-- End of Projects Dropdown Menu -->
+
+        </nav>
+        <!-- Projects Dropdown Menu for Small Screens -->
+        <!-- MUST be in different list than the above non-nested navigation menu -->
+      </div>
+    </div>
+  </header>
+</template>
+
+<style scoped>
+
+</style>

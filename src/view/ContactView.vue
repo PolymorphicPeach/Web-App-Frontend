@@ -254,7 +254,12 @@ export default {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative flex items-center justify-center h-screen">
+    <div class="absolute md:hidden z-10">
+      <a :href=linkedinlink class="link-style">
+        <img src="/logos/linkedinlogosplash.png"/>
+      </a>
+    </div>
     <div class="absolute">
       <div id="sceneContainer"></div>
     </div>

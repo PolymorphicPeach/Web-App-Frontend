@@ -28,6 +28,9 @@ export default{
   methods: {
     toggleProjectsMobileDropdownVisibility(){
       this.projectsMobileDropdownVisible = !this.projectsMobileDropdownVisible;
+    },
+    closeDropdown(){
+      this.projectsMobileDropdownVisible = false;
     }
   }
 }
@@ -107,19 +110,19 @@ export default{
           <div v-if="projectsMobileDropdownVisible" class="absolute justify-items-center rounded-b-xl bg-peach-black text-white p-2 top-16 z-10 right-0">
             <ul>
               <li>
-                <router-link to="/projects/aerial">
+                <router-link @click.native="closeDropdown" to="/projects/aerial">
                   Aerial Image Classifier
                 </router-link>
               </li>
               <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
               <li>
-                <router-link to="/projects/cryptography">
+                <router-link @click.native="closeDropdown" to="/projects/cryptography">
                   Cryptography
                 </router-link>
               </li>
               <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
               <li>
-                <router-link to="/projects/game">
+                <router-link @click.native="closeDropdown" to="/projects/game">
                   Game
                 </router-link>
               </li>

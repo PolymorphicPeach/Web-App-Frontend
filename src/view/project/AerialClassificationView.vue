@@ -16,22 +16,43 @@ export default{
     }
   },
   mounted(){
-    // Set starting static map. MUST use back-ticks ( ` )
-    this.staticMapSrc = `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=${this.zoom}&size=600x600&maptype=satellite&key=AIzaSyA2mkc3bQEVVh8jBtByoheXKslMuqo-rXU`;
+    this.getMap();
+
   },
   methods: {
-    async submitForm(){
-      this.staticMapSrc = `https://maps.googleapis.com/maps/api/staticmap?center=${this.latitude},${this.longitude}&zoom=${this.zoom}&size=600x600&maptype=satellite&key=AIzaSyA2mkc3bQEVVh8jBtByoheXKslMuqo-rXU`;
+    async getMap(){
+      try{
+        const backendURL = "/api/static-map-proxy"
+        const response = await axios.post(backendURL,
+            {
+              latitude: this.latitude,
+              longitude: this.longitude,
+              zoom: this.zoom
+            },
+            {
+              responseType: 'arraybuffer'
+            }
+        );
+        const imageBytes = response.data;
+        this.staticMapSrc = `data:image/png;base64,${btoa(String.fromCharCode.apply(null, new Uint8Array(imageBytes)))}`;
+      }
+      catch(error){
+        console.error("Error sending data to backend: ", error);
+      }
+    },
+    async submitForPrediction(){
       await this.sendMapToBackend();
       await this.renderChart();
     },
     async sendMapToBackend(){
       try{
         // response should populate with the json data
-        const backendUrl = "/api/aerial"
-        const response = await axios.post(backendUrl,
+        const backendURL = "/api/aerial"
+        const response = await axios.post(backendURL,
             {
-              imageUrl: this.staticMapSrc
+              latitude: this.latitude,
+              longitude: this.longitude,
+              zoom: this.zoom
             });
         this.chartData = response.data;
       }
@@ -113,21 +134,26 @@ export default{
         <!-- Column #1, Row #1 -->
         <div class="p-1">
           <div class="container mx-auto mt-8">
-            <form @submit.prevent="submitForm" class="max-w-md mx-auto p-6 bg-peach-black rounded-md shadow-md">
-              <div class="mb-4">
-                <label for="latitude" class="block text-peach-peach text-sm font-bold mb-2">latitude:</label>
-                <input v-model="latitude" type="number" id="latitude" name="latitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
-              </div>
-              <div class="mb-4">
-                <label for="longitude" class="block text-peach-peach text-sm font-bold mb-2">longitude:</label>
-                <input v-model="longitude" type="number" id="longitude" name="longitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
-              </div>
-              <div class="mb-4">
-                <label for="zoom" class="block text-sm text-peach-peach font-bold mb-2">zoom:</label>
-                <input v-model="zoom" type="number" id="zoom" name="zoom" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
-              </div>
-              <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Submit</button>
-            </form>
+            <div class="max-w-md mx-auto p-6 bg-peach-black rounded-md shadow-md">
+              <form @submit.prevent="getMap">
+                <div class="mb-4">
+                  <label for="latitude" class="block text-peach-peach text-sm font-bold mb-2">latitude:</label>
+                  <input v-model="latitude" type="number" id="latitude" name="latitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
+                </div>
+                <div class="mb-4">
+                  <label for="longitude" class="block text-peach-peach text-sm font-bold mb-2">longitude:</label>
+                  <input v-model="longitude" type="number" id="longitude" name="longitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
+                </div>
+                <!--              <div class="mb-4">-->
+                <!--                <label for="zoom" class="block text-sm text-peach-peach font-bold mb-2">zoom:</label>-->
+                <!--                <input v-model="zoom" type="number" id="zoom" name="zoom" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>-->
+                <!--              </div>-->
+                <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Show Location</button>
+              </form>
+              <form @submit.prevent="submitForPrediction" class="mt-2">
+                <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Get Prediction</button>
+              </form>
+            </div>
           </div>
         </div>
         <!-- Column #1, Row #2 -->
@@ -159,8 +185,9 @@ export default{
 
     <!-- Row #2 -->
     <div class="p-1">
-      <div class="container mx-auto mt-0">
-        <form @submit.prevent="submitForm" class="max-w-md mx-auto p-6 bg-peach-black rounded-md shadow-md">
+      <div class="container mx-auto mt-0 p-6 bg-peach-black rounded-md shadow-md">
+
+        <form @submit.prevent="getMap" class="max-w-md">
           <div class="mb-4">
             <label for="latitude" class="block text-peach-peach text-sm font-bold mb-2">latitude:</label>
             <input v-model="latitude" type="number" id="latitude" name="latitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
@@ -169,13 +196,17 @@ export default{
             <label for="longitude" class="block text-peach-peach text-sm font-bold mb-2">longitude:</label>
             <input v-model="longitude" type="number" id="longitude" name="longitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
           </div>
-
-          <div class="mb-4">
-            <label for="zoom" class="block text-peach-peach text-sm font-bold mb-2">zoom:</label>
-            <input v-model="zoom" type="number" id="zoom" name="zoom" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
-          </div>
-          <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Submit</button>
+          <!-- Disabled zoom -->
+<!--          <div class="mb-4">-->
+<!--            <label for="zoom" class="block text-peach-peach text-sm font-bold mb-2">zoom:</label>-->
+<!--            <input v-model="zoom" type="number" id="zoom" name="zoom" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>-->
+<!--          </div>-->
+          <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Show Location</button>
         </form>
+        <form @submit.prevent="submitForPrediction" class="mt-2">
+          <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Get Prediction</button>
+        </form>
+
       </div>
     </div>
 
@@ -185,9 +216,7 @@ export default{
         <canvas id="chartCanvasSmallScreen"></canvas>
       </div>
     </div>
-
   </div>
-
 
 </template>
 

@@ -149,6 +149,8 @@ export default{
 
   },
   mounted(){
+    this.addMobileRestrictions();
+
     this.lastMovement = this.Direction.DOWN;
     this.upPressed = false;
     this.downPressed = false;
@@ -214,10 +216,22 @@ export default{
 
   },
   beforeUnmount(){
-
-
+    this.removeMobileRestrictions();
   },
   methods: {
+    addMobileRestrictions(){
+      // Stopping mobile users from accidentally zooming
+      const meta = document.createElement("meta");
+      meta.name = "viewport";
+      meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      document.head.appendChild(meta);
+    },
+    removeMobileRestrictions(){
+      const meta = document.querySelector("meta[name='viewport']");
+      if(meta){
+        document.head.removeChild(meta);
+      }
+    },
     loadPlayer(){
       this.playerImage = new Image();
       this.playerImage.src = "/game/sprites/RedNinja.png";
@@ -599,7 +613,7 @@ export default{
         this.interactionPressed = false;
       }
       else{
-        this.lastMovement = this.Direction.UP;
+        //this.lastMovement = this.Direction.UP;
         this.upPressed = false;
       }
     },
@@ -610,7 +624,7 @@ export default{
         this.interactionPressed = false;
       }
       else{
-        this.lastMovement = this.Direction.DOWN;
+        //this.lastMovement = this.Direction.DOWN;
         this.downPressed = false;
       }
     },
@@ -621,7 +635,7 @@ export default{
         this.interactionPressed = false;
       }
       else{
-        this.lastMovement = this.Direction.LEFT;
+        //this.lastMovement = this.Direction.LEFT;
         this.leftPressed = false;
       }
     },
@@ -632,7 +646,7 @@ export default{
         this.interactionPressed = false;
       }
       else{
-        this.lastMovement = this.Direction.RIGHT;
+        //this.lastMovement = this.Direction.RIGHT;
         this.rightPressed = false;
       }
     },
@@ -867,8 +881,8 @@ export default{
       <div class="flex justify-center">
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 id="upButton"
-                @pointerdown="onScreenUp('true')"
-                @mouseup="onScreenUp('false')">
+                @touchstart="onScreenUp('true')"
+                @touchend="onScreenUp('false')">
           UP
         </button>
       </div>
@@ -876,14 +890,14 @@ export default{
       <div class="flex justify-center grid-rows-1 grid-flow-col gap-1">
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 id="leftButton"
-                @pointerdown="onScreenLeft('true')"
-                @mouseup="onScreenLeft('false')">
+                @touchstart="onScreenLeft('true')"
+                @touchend="onScreenDown('false')">
           LEFT
         </button>
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 id="rightButton"
-                @pointerdown="onScreenRight('true')"
-                @mouseup="onScreenRight('false')">
+                @touchstart="onScreenRight('true')"
+                @touchend="onScreenRight('false')">
           RIGHT
         </button>
       </div>
@@ -891,8 +905,8 @@ export default{
       <div class="flex justify-center">
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 id="downButton"
-                @pointerdown="onScreenDown('true')"
-                @mouseup="onScreenDown('false')">
+                @touchstart="onScreenDown('true')"
+                @touchend="onScreenDown('false')">
           DOWN
         </button>
       </div>
@@ -900,7 +914,8 @@ export default{
       <div class="flex justify-start">
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 id="downButton"
-                @pointerdown="onScreenTalk()">
+                @pointerdown="onScreenTalk()"
+                @touchend="onScreenTalk()">
           TALK
         </button>
       </div>

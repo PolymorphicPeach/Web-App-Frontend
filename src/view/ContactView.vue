@@ -16,6 +16,7 @@ export default {
       email: "peach.matthew.93@gmail.com",
       mouseClick: false,
       mouseDragging: false,
+      linkedinOpened: false,
     }
   },
   beforeMount(){
@@ -46,13 +47,8 @@ export default {
 
     // Add objects so scene
     this.populateScene();
-    // Resize listener
-    window.addEventListener("resize", this.onWindowResize);
 
-    // Mouse event listeners - maybe use "window" instead...?
-    this.renderer.domElement.addEventListener("pointerdown", this.pointerdown)
-    this.renderer.domElement.addEventListener("pointerup", this.pointerup)
-    this.renderer.domElement.addEventListener("pointermove", this.pointerMove);
+    this.addEventListeners();
 
     this.animate();
 
@@ -63,12 +59,31 @@ export default {
     if(sceneContainer.contains(this.renderer.domElement)){
       sceneContainer.removeChild(this.renderer.domElement);
     }
-    // Remove event listeners
-    this.renderer.domElement.removeEventListener("pointerdown", this.pointerdown);
-    this.renderer.domElement.removeEventListener("pointerup", this.pointerup);
-    this.renderer.domElement.removeEventListener("pointermove", this.pointerMove);
+    this.removeEventListeners();
   },
   methods: {
+    addEventListeners(){
+      // Resize listener
+      window.addEventListener("resize", this.onWindowResize);
+      // Mouse event listeners - maybe use "window" instead...?
+      this.renderer.domElement.addEventListener("pointerdown", this.pointerdown)
+      this.renderer.domElement.addEventListener("pointerup", this.pointerup)
+      this.renderer.domElement.addEventListener("pointermove", this.pointerMove);
+      // Mobile
+      this.renderer.domElement.addEventListener("touchstart", this.touchstart);
+      this.renderer.domElement.addEventListener("touchend", this.touchend);
+      this.renderer.domElement.addEventListener("touchmove", this.touchmove);
+
+    },
+    removeEventListeners(){
+      window.removeEventListener("resize", this.onWindowResize);
+      this.renderer.domElement.removeEventListener("pointerdown", this.pointerdown);
+      this.renderer.domElement.removeEventListener("pointerup", this.pointerup);
+      this.renderer.domElement.removeEventListener("pointermove", this.pointerMove);
+      this.renderer.domElement.removeEventListener("touchstart", this.touchstart);
+      this.renderer.domElement.removeEventListener("touchend", this.touchend);
+      this.renderer.domElement.removeEventListener("touchmove", this.touchmove);
+    },
     animate(){
       // ============================================
       requestAnimationFrame(this.animate);
@@ -83,17 +98,9 @@ export default {
         this.linkedinCircle.rotateY(5);
         if(this.mouseClick == true && this.mouseDragging == false){
           this.openLinkedin();
+          this.linkedinOpened = true;
         }
       }
-
-      // mailto: Will work this out later...
-      // const intersectsMail = this.raycaster.intersectObject(this.mail);
-      // if(intersectsMail.length > 0){
-      //   this.mail.rotateY(5);
-      //   if(this.mouseClick == true && this.mouseDragging == false){
-      //     this.openEmail();
-      //   }
-      // }
 
       this.linkedinCircle.rotateY(0.075);
       this.myPicture.rotateY(0.05);
@@ -212,12 +219,36 @@ export default {
     pointerdown(){
       this.mouseClick = true;
     },
+    touchmove(){
+      // Allow dragging - touch will be considered as clicked while dragging
+      if (this.mouseClick) {
+        this.mouseDragging = true;
+      }
+      // Use event.touches[0] to get information about the first touch
+      const touch = event.touches[0];
+      this.mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+      this.raycaster.setFromCamera(this.mouse, this.camera);
+    },
+    touchstart(event){
+      // Prevent default to avoid double tap zooming
+      event.preventDefault();
+      // Touch will be considered as clicked when starting
+      this.mouseClick = true;
+    },
+    touchend(event){
+      // reset
+      event.preventDefault();
+      if(this.mouseClick){
+        this.openLinkedin();
+        this.mouseClick = false;
+        this.mouseDragging = false;
+      }
+
+    },
     openLinkedin(){
       window.open(this.linkedinlink);
     },
-    // openEmail(){
-    //   location.href="mailto:" + this.email;
-    // }
   }
 }
 </script>

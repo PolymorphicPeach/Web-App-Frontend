@@ -18,7 +18,7 @@ export default {
 
 <template>
   <div>
-<!--    <EldritchScene/>-->
-    <StatueScene/>
+    <EldritchScene/>
+<!--    <StatueScene/>-->
   </div>
 </template>

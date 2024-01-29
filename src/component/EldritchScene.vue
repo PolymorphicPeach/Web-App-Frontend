@@ -9,7 +9,7 @@ export default{
     return{
       // Intentionally blank
       // https://stackoverflow.com/questions/65693108/threejs-component-working-in-vuejs-2-but-not-3/65732553
-      sculptureCredits: "Lovecraftian Sculpture: (https://skfb.ly/onHBV) by TLaCroix is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/)",
+      sculptureCredits: "https://sketchfab.com/3d-models/simple-spotted-jellyfish-baked-animation-d5006697ad3c4bc1ac814110cde19af2",
     };
   },
   mounted(){
@@ -28,9 +28,7 @@ export default{
       this.setCamera();
       this.setLighting();
       this.setFloor();
-      this.setSky();
       this.setStatue();
-
 
       window.addEventListener("resize", this.onWindowResize);
 
@@ -108,33 +106,24 @@ export default{
     setStatue(){
       const loader = new GLTFLoader();
       loader.load(
-          "/models/lovecraftian_sculpture/scene.gltf",
+          "/models/simple-spotted-jellyfish-baked-animation/source/Spotted-Jelly/Spotted-Jelly.gltf",
           (gltf) => {
             const model = gltf.scene;
-            model.scale.set(1.5,1.5,1.5);
-            model.position.set(0,0.5,0);
+            model.position.set(1.5,1,-0.5);
             model.rotation.y += Math.PI * 0.45;
 
             model.traverse((node) => {
               if(node.isMesh){
-                node.material.color.set(0xffffff);
-                node.material.emissive.set(0xffffff);
-                node.material.roughness = 0.2;
-                node.material.metalness = 0.8;
+                node.material.color.set(0xec7a9b);
+                node.material.emissive.set(0xec7a9b);
+                node.material.transparent = true;
+                node.material.opacity = 0.75;
                 node.castShadow = true;
                 node.receiveShadow = true;
               }
             })
-
             this.scene.add(model);
           });
-    },
-    setSky(){
-      const skyGeo = new THREE.SphereGeometry( 4000, 32, 15 );
-      const skyMat = new THREE.ShaderMaterial();
-
-      const sky = new THREE.Mesh( skyGeo, skyMat );
-      this.scene.add( sky );
     },
     animate(){
       requestAnimationFrame(this.animate);

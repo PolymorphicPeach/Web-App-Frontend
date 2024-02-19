@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import GLBModel from "@/assets/dungeon/classes/GLBModel.js";
 
 export default{
   name: "EldritchScene",
@@ -105,29 +106,62 @@ export default{
     },
     setStatue(){
       const loader = new GLTFLoader();
-      loader.load(
-          "/models/simple-spotted-jellyfish-baked-animation/source/Spotted-Jelly/Spotted-Jelly.gltf",
-          (gltf) => {
-            const model = gltf.scene;
-            model.position.set(1.5,1,-0.5);
-            model.rotation.y += Math.PI * 0.45;
+      loader.load("/models/jellyfish.glb", (glb) => {
+        const model = glb.scene;
 
-            model.traverse((node) => {
-              if(node.isMesh){
-                node.material.color.set(0xec7a9b);
-                node.material.emissive.set(0xec7a9b);
-                node.material.transparent = true;
-                node.material.opacity = 0.75;
-                node.castShadow = true;
-                node.receiveShadow = true;
-              }
-            })
-            this.scene.add(model);
-          });
+        model.traverse((node) => {
+          if(node.isMesh){
+            node.material.color.set(0xec7a9b);
+            node.material.emissive.set(0xec7a9b);
+            node.material.transparent = true;
+            node.material.opacity = 0.75;
+            node.castShadow = true;
+            node.receiveShadow = true;
+          }
+        });
+
+        this.scene.add(model);
+        this.mixer = new THREE.AnimationMixer(model);
+
+        const clips = glb.animations;
+        const clip = THREE.AnimationClip.findByName(clips, "Loop-400");
+        const action = this.mixer.clipAction(clip);
+        action.play();
+      });
+      // For timing animations
+      this.clock = new THREE.Clock();
+
+
+      // loader.load(
+      //     "/models/jellyfish.glb",
+      //     (gltf) => {
+      //       const model = gltf.scene;
+      //       model.position.set(1.5,1,-0.5);
+      //       model.rotation.y += Math.PI * 0.45;
+      //
+      //       model.traverse((node) => {
+      //         if(node.isMesh){
+      //           node.material.color.set(0xec7a9b);
+      //           node.material.emissive.set(0xec7a9b);
+      //           node.material.transparent = true;
+      //           node.material.opacity = 0.75;
+      //           node.castShadow = true;
+      //           node.receiveShadow = true;
+      //         }
+      //       })
+      //       this.scene.add(model);
+      //     });
     },
     animate(){
       requestAnimationFrame(this.animate);
       const time = performance.now() / 3000;
+
+      // =============================
+      // prevent calling if mixer is undefined
+      if(this.mixer){
+        this.mixer.update(this.clock.getDelta());
+      }
+      //==============================
 
       this.spotlight.position.x = Math.cos(time) * 2.5;
       this.spotlight.position.z = Math.sin(time) * 2.5;

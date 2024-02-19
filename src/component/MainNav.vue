@@ -79,6 +79,10 @@ export default{
                   <router-link to="/projects/game">
                     Game
                   </router-link>
+                  <hr class="border-t mx-2 border-grey-light">
+                  <router-link to="/projects/dungeon">
+                    Dungeon Game
+                  </router-link>
                 </div>
               </div>
             </li>
@@ -126,29 +130,17 @@ export default{
                   Game
                 </router-link>
               </li>
+              <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
+              <li>
+                <router-link @click.native="closeDropdown" to="/projects/dungeon">
+                  Dungeon Game
+                </router-link>
+              </li>
             </ul>
-
-
-            <!----- Dropdown Options ----->
-            <!--                <div class="dropdown-content ml-0">-->
-            <!--                  <router-link to="/projects/aerial" class="block whitespace-nowrap overflow-hidden overflow-ellipsis">-->
-            <!--                    Aerial Image Classifier-->
-            <!--                  </router-link>-->
-            <!--                  <hr class="border-t mx-2 pt-2 pb-2 border-grey-light">-->
-            <!--                  <router-link to="/projects/cryptography">-->
-            <!--                    Cryptography-->
-            <!--                  </router-link>-->
-            <!--                  <hr class="border-t mx-2 pt-2 pb-2 border-grey-light">-->
-            <!--                  <router-link to="/projects/game">-->
-            <!--                    Game-->
-            <!--                  </router-link>-->
-            <!--                </div>-->
           </div>
           <!-- End of Projects Dropdown Menu -->
 
         </nav>
-        <!-- Projects Dropdown Menu for Small Screens -->
-        <!-- MUST be in different list than the above non-nested navigation menu -->
       </div>
     </div>
   </header>

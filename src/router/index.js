@@ -7,6 +7,7 @@ import ProjectsView from "@/view/ProjectsView.vue";
 import AerialClassificationView from "@/view/project/AerialClassificationView.vue";
 import CryptographyView from "@/view/project/CryptographyView.vue";
 import GameView from "@/view/project/GameView.vue";
+import DungeonGameView from "@/view/dungeon/DungeonGameView.vue";
 
 const routes = [
     {
@@ -48,6 +49,11 @@ const routes = [
         path: "/projects/cryptography",
         name: "Cryptography",
         component: CryptographyView
+    },
+    {
+        path: "/projects/dungeon",
+        name: "DungeonGame",
+        component: DungeonGameView
     }
 ];
 

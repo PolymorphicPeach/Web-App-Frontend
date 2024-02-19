@@ -13,6 +13,7 @@ export default{
 </script>
 
 <template>
+
   <MainNav/>
   <!-- dynamic content is rendered by the router-view here -->
   <router-view />

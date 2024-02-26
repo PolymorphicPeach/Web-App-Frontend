@@ -1,11 +1,11 @@
 <script>
-import StatueScene from "@/component/StatueScene.vue"
 import EldritchScene from "@/component/EldritchScene.vue"
+import HomeScene from "@/component/HomeScene.vue";
 export default {
   name: "HomeView",
   components: {
-    StatueScene,
-    EldritchScene
+    EldritchScene,
+    HomeScene,
   },
   mounted(){
     // Intentionally blank
@@ -18,7 +18,7 @@ export default {
 
 <template>
   <div>
-    <EldritchScene/>
-<!--    <StatueScene/>-->
+    <!-- <EldritchScene/> -->
+    <HomeScene/>
   </div>
 </template>

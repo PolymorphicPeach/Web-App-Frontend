@@ -131,26 +131,6 @@ export default{
       // For timing animations
       this.clock = new THREE.Clock();
 
-
-      // loader.load(
-      //     "/models/jellyfish.glb",
-      //     (gltf) => {
-      //       const model = gltf.scene;
-      //       model.position.set(1.5,1,-0.5);
-      //       model.rotation.y += Math.PI * 0.45;
-      //
-      //       model.traverse((node) => {
-      //         if(node.isMesh){
-      //           node.material.color.set(0xec7a9b);
-      //           node.material.emissive.set(0xec7a9b);
-      //           node.material.transparent = true;
-      //           node.material.opacity = 0.75;
-      //           node.castShadow = true;
-      //           node.receiveShadow = true;
-      //         }
-      //       })
-      //       this.scene.add(model);
-      //     });
     },
     animate(){
       requestAnimationFrame(this.animate);

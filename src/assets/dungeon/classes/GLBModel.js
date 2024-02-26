@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import DungeonItemBase from "@/assets/dungeon/classes/DungeonItemBase.js";
 
 export default class GLBModel extends DungeonItemBase{

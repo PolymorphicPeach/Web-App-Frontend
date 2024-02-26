@@ -8,7 +8,6 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import DungeonController from "@/component/DungeonController.vue";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import GLBModel from "@/assets/dungeon/classes/GLBModel.js";
-import DungeonItemBase from "@/assets/dungeon/classes/DungeonItemBase.js"
 
 export default {
   name: "DungeonGameView",
@@ -29,13 +28,11 @@ export default {
     this.animationClock = new THREE.Clock();
   },
   mounted(){
-
     this.configureScene();
     this.configureRenderer();
     this.configureCamera();
     this.configureControls();
     this.configureRaycaster();
-
     this.configureLights();
     this.populateScene();
     this.addEventListeners();
@@ -43,9 +40,8 @@ export default {
     this.animate();
   },
   beforeUnmount(){
-    const sceneContainer = document.getElementById("sceneContainer");
-    if(sceneContainer.contains(this.renderer.domElement)){
-      sceneContainer.removeChild(this.renderer.domElement);
+    if(this.sceneContainer.contains(this.renderer.domElement)){
+      this.sceneContainer.removeChild(this.renderer.domElement);
     }
     this.removeEventListeners();
   },
@@ -60,9 +56,6 @@ export default {
 
       // ---- Update Animations ----
       this.playActorAnimations();
-      // if(this.mixer){
-      //   this.mixer.update(this.animationClock.getDelta());
-      // }
 
       // ---- Update Raycaster ----
       this.raycaster.setFromCamera(this.mouse, this.camera);
@@ -103,8 +96,6 @@ export default {
       this.renderer.setSize(this.sceneContainer.offsetWidth, this.sceneContainer.offsetHeight);
 
       this.sceneContainer.appendChild(this.renderer.domElement);
-      this.renderer.domElement.style.width = "90%";
-      this.renderer.domElement.style.height = "90%";
     },
     configureControls(){
       // Set controls after appending to child
@@ -245,7 +236,7 @@ export default {
 <template>
 
   <div class="relative flex z-0 justify-center h-screen w-screen">
-    <div id="sceneContainer" class="absolute flex flex-col items-center justify-start h-full w-full mt-0 pt-0"></div>
+    <div id="sceneContainer" class="absolute flex flex-col items-center justify-start h-3/4 w-3/4 mt-0 pt-0"></div>
 
     <!-- Next thing -->
     <div>

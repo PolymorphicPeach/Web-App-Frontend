@@ -160,19 +160,6 @@ export default {
       this.wheel3.group.rotation.x -= 0.5;
       this.scene.add(this.wheel3.group);
 
-      // mailto: Will work this out later...
-      // ====== Letter/Email ==============
-      // const mailTexture = new THREE.TextureLoader().load("/other/email.jpg");
-      // this.mail = new THREE.Mesh(
-      //     new THREE.PlaneGeometry(20, 20, 5),
-      //     new THREE.MeshBasicMaterial({map: mailTexture, side:THREE.DoubleSide, transparent: true})
-      // );
-      // this.mail.position.z -= 50;
-      // this.mail.position.x += 15;
-      // this.mail.position.y -= 5;
-      // this.mail.rotateZ(0.5);
-      // this.scene.add(this.mail);
-
       // ===== Linkedin Circle =============
       const linkedinlogo = new THREE.TextureLoader().load("/logos/linkedin.jpg");
       this.linkedinCircle = new THREE.Mesh(
@@ -255,11 +242,11 @@ export default {
 
 <template>
   <div class="relative flex items-center justify-center h-screen">
-    <div class="absolute md:hidden z-10">
-      <a :href=linkedinlink class="link-style">
-        <img src="/logos/linkedinlogosplash.png"/>
-      </a>
-    </div>
+<!--    <div class="absolute md:hidden z-10">-->
+<!--      <a :href=linkedinlink class="link-style">-->
+<!--        <img src="/logos/linkedinlogosplash.png"/>-->
+<!--      </a>-->
+<!--    </div>-->
     <div class="absolute">
       <div id="sceneContainer"></div>
     </div>

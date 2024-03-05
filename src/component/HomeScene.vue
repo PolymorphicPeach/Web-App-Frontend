@@ -4,8 +4,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as YUKA from 'yuka';
 import PredefinedPathFish from "@/assets/fish/PredefinedPathFish.js";
-import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
-import SeekingFish from "@/assets/fish/SeekingFish.js";
 
 export default{
   name: "HomeScene",

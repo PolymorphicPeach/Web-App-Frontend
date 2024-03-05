@@ -27,13 +27,12 @@ export default {
       this.$emit("selected-unit", this.selectedUnit);
     }
   }
-
 }
 
 </script>
 
 <template>
-  <div class="absolute inline-flex flex-col h-0 z-2 inset-y-0 right-0 p-3 w-1/4">
+  <div class="absolute inline-flex flex-col h-0 z-2 inset-y-0 right-0 p-3 w-1/2 md:w-1/4">
     <!-- There is a checkbox hidden under the slider, hence so much "peer" -->
     <!-- https://flowbite.com/docs/forms/toggle/ -->
     <label class="inline-flex items-center cursor-pointer p-3 bg-peach-pink">
@@ -91,11 +90,6 @@ export default {
     </div>
 
   </div>
-
-
-
-
-
 
 </template>
 

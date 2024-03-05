@@ -8,11 +8,14 @@ import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
 import DungeonController from "@/component/DungeonController.vue";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import GLBModel from "@/assets/dungeon/classes/GLBModel.js";
+import WorkInProgress from "@/component/WorkInProgress.vue"
 
 export default {
   name: "DungeonGameView",
   components: {
     DungeonController,
+    WorkInProgress,
+
   },
   data(){
     return{
@@ -60,7 +63,6 @@ export default {
       // ---- Update Raycaster ----
       this.raycaster.setFromCamera(this.mouse, this.camera);
 
-
       // ==========================================================
       this.renderer.render(this.scene, this.camera);
     },
@@ -72,7 +74,6 @@ export default {
 
       })
     },
-
     // =============================================================
     //                   Initial Configurations
     // =============================================================
@@ -94,7 +95,6 @@ export default {
       this.renderer = new THREE.WebGLRenderer({antialias: true});
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(this.sceneContainer.offsetWidth, this.sceneContainer.offsetHeight);
-
       this.sceneContainer.appendChild(this.renderer.domElement);
     },
     configureControls(){
@@ -107,7 +107,7 @@ export default {
           this.sceneContainer.offsetWidth / this.sceneContainer.offsetHeight,
           0.1,
           1000);
-      this.camera.position.z = 50;
+      this.camera.position.z += 50;
     },
     configureRaycaster(){
       this.mouse = new THREE.Vector2(0,0);
@@ -120,7 +120,6 @@ export default {
         this.archetypalDevilModel = glb.scene;
         this.archetypalDevilAnimations = glb.animations;
       });
-
     },
     configureLights(){
       const hemisphereLight = new THREE.HemisphereLight(0xfffff, 0xfffff,2);
@@ -148,9 +147,6 @@ export default {
     // =============================================================
     updateMousePosition(event){
       event.preventDefault();
-      // Following two lines work well for full screen:
-      //this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      //this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
       const rectangle = this.renderer.domElement.getBoundingClientRect();
       const x = event.clientX - rectangle.left;
@@ -236,16 +232,19 @@ export default {
 <template>
 
   <div class="relative flex z-0 justify-center h-screen w-screen">
-    <div id="sceneContainer" class="absolute flex flex-col items-center justify-start h-3/4 w-3/4 mt-0 pt-0"></div>
+    <div id="sceneContainer" class="absolute flex flex-col items-center justify-start w-full h-full md:h-3/4 md:w-3/4 mt-0 pt-0"></div>
 
-    <!-- Next thing -->
     <div>
       <!-- "selected-unit" is emission name-->
       <DungeonController @selected-unit="setSelectedUnit"/>
     </div>
+
+    <div>
+      <WorkInProgress/>
+    </div>
+
+
   </div>
-
-
 </template>
 
 <style>

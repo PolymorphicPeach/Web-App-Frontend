@@ -78,7 +78,7 @@ export default{
         key: this.key,
       };
       try{
-        const response = await axios.post("/api/caesar", payload);
+        const response = await axios.post(import.meta.env.VITE_API_CAESAR, payload);
         console.log(response);
         this.responseData = response.data;
       }
@@ -92,28 +92,17 @@ export default{
       }
       const chartCanvas = document.getElementById("chartCanvas");
       const ctx = chartCanvas.getContext("2d");
-      // Extract letter and frequency
-      const sortedByASCII = this.responseData.cipherFrequencies
-          .slice()
-          .sort((a,b) => a.letter.localeCompare(b.letter));
 
-      const labels = sortedByASCII.map(item => item.letter);
-      const data = sortedByASCII.map(item => item.frequency);
+      const data = this.responseData.letterFrequency;
 
       this.chart = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: labels,
           datasets: [
             {
               label: "letter frequency",
               data: data,
-              backgroundColor: (context) => {
-                const value = context.dataset.data[context.dataIndex];
-                const max = Math.max(...data);
-                const index = Math.floor((value / max) * this.heatmap.length - 1);
-                return this.heatmap[index];
-              }
+              backgroundColor: this.heatmap
             }
           ]
         },

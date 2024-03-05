@@ -264,7 +264,7 @@ export default{
           three: "Reported sightings were trending up until the mid 2000s, where they sharply decreased. \"Class B,\" far-away, sightings also overtook \"Class A,\" up-close sightings, after this decline.",
           four: "I think I heard a tree-knock..."
         },
-        iframeAddress: "game/iframecontent/bigfoot.html",
+        iframeAddress: "/game/iframecontent/bigfoot.html",
         showIframeOn: 4,
       })
 
@@ -283,7 +283,7 @@ export default{
           three: "I improved the dataset by consolodating the original shapes into new categories. I was still unable to train a model, but it's possible that a model could never be trained to accurately predict the reported shape if the shapes are effectively random.",
           four: "Sure.",
         },
-        iframeAddress: "game/iframecontent/ufo.html",
+        iframeAddress: "/game/iframecontent/ufo.html",
         showIframeOn: 4,
       })
 
@@ -301,7 +301,7 @@ export default{
           three: "It's on the Popular Political Podcasts Dataset website and it's frequently updated. Long story short: they use a machine learning model that analyzes the hosts' Twitter/X account activity.",
           four: "Sure."
         },
-        iframeAddress: "game/iframecontent/podcast.html",
+        iframeAddress: "/game/iframecontent/podcast.html",
         showIframeOn: 4,
       })
 
@@ -719,32 +719,12 @@ export default{
       //   Player interacting with NPC
       //================================
       if(this.interactingNPC !== null){
-
-        const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
-
-        //if(viewportWidth >= 768){
         document.getElementById("npcDialogueBox").style.opacity = "1";
         document.getElementById("npcDialogueBox").style.pointerEvents = "visible";
-        //}
-        //else{
-        //document.getElementById("npcDialogueBoxSmall").style.opacity = "1";
-        //document.getElementById("npcDialogueBoxSmall").style.pointerEvents = "visible";
-        //}
-
-
-
-
-        // Bugs out for some reason
-        //document.getElementById("npcDialogue").innerText = this.interactingNPC.dialogue.welcome;
         document.getElementById("button1").innerText = this.interactingNPC.dialogue.playerOptions.option1;
         document.getElementById("button2").innerText = this.interactingNPC.dialogue.playerOptions.option2;
         document.getElementById("button3").innerText = this.interactingNPC.dialogue.playerOptions.option3;
         document.getElementById("button4").innerText = this.interactingNPC.dialogue.playerOptions.option4;
-
-        // document.getElementById("button1Small").innerText = this.interactingNPC.dialogue.playerOptions.option1;
-        // document.getElementById("button2Small").innerText = this.interactingNPC.dialogue.playerOptions.option2;
-        // document.getElementById("button3Small").innerText = this.interactingNPC.dialogue.playerOptions.option3;
-        // document.getElementById("button4Small").innerText = this.interactingNPC.dialogue.playerOptions.option4;
 
       }
     },
@@ -783,147 +763,99 @@ export default{
 </script>
 
 <template>
-  <div class="relative flex items-center justify-center">
-    <div class="container mx-auto pt-1 pb-1">
-      <canvas id="gameCanvas" class="w-full h-full max-w-[1024px] max-h-[576px];"></canvas>
+  <div id="outerColumn" class="">
+
+    <div id="gameScreen" class="relative flex items-center justify-center">
+      <div class="container pb-2 mx-auto">
+        <canvas id="gameCanvas" class="w-full h-full max-w-[1024px] max-h-[576px];"></canvas>
+      </div>
+      <!-- iframe for showing projects -->
+      <iframe
+          src=""
+          id="projectsIframe"
+          allowTransparency="true"
+          class="absolute w-full h-full max-w-[900px] max-h-[500px] opacity-100 pointer-events-none">
+      </iframe>
     </div>
 
-    <!-- iframe for showing projects -->
-    <iframe
-        src=""
-        id="projectsIframe"
-        allowTransparency="true"
-        class="absolute p-10 w-full h-full max-w-[1000px] max-h-[500px] opacity-100 pointer-events-none">
-    </iframe>
-  </div>
 
-  <!-----------------------------------------------------
-           Controls for Medium and Larger Screens
-  ------------------------------------------------------->
-  <div class="hidden md:grid grid-cols-12 grid-flow-row gap-1">
-    <div id="npcDialogueBox"
-         class="grid grid-cols-2 col-start-2 col-span-8 gap-1"
-         style="opacity: 0; pointer-events: none;">
-      <div id="npcDialogue">
-        <!-- Using reactivity, should have done this a bit more probably-->
-        {{npcDialogue}}
+    <div id="controls" class="flex flex-row flex-wrap-reverse pl-3 md:pl-20 w-full max-w-[1024px]">
+
+      <div class="basis-5/6">
+        <div id="npcDialogueBox" class="flex flex-row" style="opacity: 0; pointer-events: none;">
+
+          <div id="npcDialogue" class="basis-1/2">
+            <!-- Using reactivity, should have done this a bit more probably-->
+            {{npcDialogue}}
+          </div>
+
+          <div id="playerDialogueSelectionBox" class="basis-1/2 rows-4 gap-1 justify-items-end">
+            <div id="playerDialogueButtons">
+              <button id="button1" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(1)">
+                Option1
+              </button>
+              <button id="button2" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(2)">
+                Option2
+              </button>
+              <button id="button3" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(3)">
+                Option3
+              </button>
+              <button id="button4" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(4)">
+                Option4
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div id="playerDialogueSelectionBox" class="grid-rows-4 grid-flow-col flex justify center items-center gap-1">
-        <div id="playerDialogueButtons">
-          <button id="button1" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(1)">
-            Option1
-          </button>
-          <button id="button2" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(2)">
-            Option2
-          </button>
-          <button id="button3" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(3)">
-            Option3
-          </button>
-          <button id="button4" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 border border-blue-700 rounded w-full" @pointerdown="processPlayerResponse(4)">
-            Option4
-          </button>
+
+      <div class="basis-1/6 min-w-[100px]">
+        <div class="grid grid-cols-12 grid-flow-row gap-1">
+          <div id="gameController" class="col-start-1 col-span-1 grid grid-rows-4 grid-flow-col gap-1 p-1">
+            <!-- Row #1: Up Button alone centered -->
+            <div class="flex justify-center">
+              <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                      id="upButton"
+                      @pointerdown="onScreenUp('true')"
+                      @mouseup="onScreenUp('false')">
+                UP
+              </button>
+            </div>
+            <!-- Row #2: Left and Right Buttons centered -->
+            <div class="flex justify-center grid-rows-1 grid-flow-col gap-1">
+              <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                      id="leftButton"
+                      @pointerdown="onScreenLeft('true')"
+                      @mouseup="onScreenLeft('false')">
+                LEFT
+              </button>
+              <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                      id="rightButton"
+                      @pointerdown="onScreenRight('true')"
+                      @mouseup="onScreenRight('false')">
+                RIGHT
+              </button>
+            </div>
+            <!-- Row #3: Down Button alone centered -->
+            <div class="flex justify-center">
+              <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                      id="downButton"
+                      @pointerdown="onScreenDown('true')"
+                      @mouseup="onScreenDown('false')">
+                DOWN
+              </button>
+            </div>
+            <!-- Row #4 Talk Button alone, aligned left -->
+            <div class="flex justify-start">
+              <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                      id="downButton"
+                      @pointerdown="onScreenTalk()">
+                TALK
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div id="gameController" class="col-start-10 col-span-1 grid grid-rows-4 grid-flow-col gap-1">
-      <!-- Row #1: Up Button alone centered -->
-      <div class="flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="upButton"
-                @pointerdown="onScreenUp('true')"
-                @mouseup="onScreenUp('false')">
-          UP
-        </button>
-      </div>
-      <!-- Row #2: Left and Right Buttons centered -->
-      <div class="flex justify-center grid-rows-1 grid-flow-col gap-1">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="leftButton"
-                @pointerdown="onScreenLeft('true')"
-                @mouseup="onScreenLeft('false')">
-          LEFT
-        </button>
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="rightButton"
-                @pointerdown="onScreenRight('true')"
-                @mouseup="onScreenRight('false')">
-          RIGHT
-        </button>
-      </div>
-      <!-- Row #3: Down Button alone centered -->
-      <div class="flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="downButton"
-                @pointerdown="onScreenDown('true')"
-                @mouseup="onScreenDown('false')">
-          DOWN
-        </button>
-      </div>
-      <!-- Row #4 Talk Button alone, aligned left -->
-      <div class="flex justify-start">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="downButton"
-                @pointerdown="onScreenTalk()">
-          TALK
-        </button>
-      </div>
-    </div>
-  </div>
-  <!------------------------------------------------------------------------------------>
-
-  <!-----------------------------------------------------
-         Controls for Small screens
-  ------------------------------------------------------->
-  <div class="grid md:hidden grid-flow-row gap-1">
-    <div id="gameController" class="col-start-10 col-span-1 grid grid-rows-4 grid-flow-col gap-1">
-      <!-- Row #1: Up Button alone centered -->
-      <div class="flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="upButton"
-                @touchstart="onScreenUp('true')"
-                @touchend="onScreenUp('false')">
-          UP
-        </button>
-      </div>
-      <!-- Row #2: Left and Right Buttons centered -->
-      <div class="flex justify-center grid-rows-1 grid-flow-col gap-1">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="leftButton"
-                @touchstart="onScreenLeft('true')"
-                @touchend="onScreenDown('false')">
-          LEFT
-        </button>
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="rightButton"
-                @touchstart="onScreenRight('true')"
-                @touchend="onScreenRight('false')">
-          RIGHT
-        </button>
-      </div>
-      <!-- Row #3: Down Button alone centered -->
-      <div class="flex justify-center">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="downButton"
-                @touchstart="onScreenDown('true')"
-                @touchend="onScreenDown('false')">
-          DOWN
-        </button>
-      </div>
-      <!-- Row #4 Talk Button alone, aligned left -->
-      <div class="flex justify-start">
-        <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                id="downButton"
-                @pointerdown="onScreenTalk()"
-                @touchend="onScreenTalk()">
-          TALK
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="flex md:hidden p-2">
-    <div class="bg-peach-black text-white p-2">
-      <p>Mobile implementation of this is a work in progress. Feel free to walk around!</p>
     </div>
   </div>
 

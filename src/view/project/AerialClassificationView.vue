@@ -23,8 +23,8 @@ export default{
     async getMap(){
       if(this.validateCoordinates()) {
         try {
-          //const backendURL = "http://localhost:8080/api/static-map-proxy";
-          const backendURL = "/api/static-map-proxy";
+          const backendURL = import.meta.env.VITE_API_STATIC_MAP;
+
           const response = await axios.post(backendURL,
               {
                 latitude: this.latitude,
@@ -51,9 +51,8 @@ export default{
     },
     async sendMapToBackend(){
       try{
-        // response should populate with the json data
-        //const backendURL = "http://localhost:8080/api/aerial";
-        const backendURL = "/api/aerial"
+        const backendURL = import.meta.env.VITE_API_AERIAL;
+
         const response = await axios.post(backendURL,
             {
               latitude: this.latitude,

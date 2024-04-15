@@ -83,6 +83,13 @@ export default{
                   <router-link to="/projects/dungeon">
                     Dungeon Game
                   </router-link>
+                  <hr class="border-t mx-2 border-grey-light">
+                  <router-link to="/projects/qualmanagement">
+                    Qual Management Demo
+                  </router-link>
+                  <router-link to="/projects/algorithms">
+                    Algorithm Animations
+                  </router-link>
                 </div>
               </div>
             </li>
@@ -134,6 +141,12 @@ export default{
               <li>
                 <router-link @click.native="closeDropdown" to="/projects/dungeon">
                   Dungeon Game
+                </router-link>
+              </li>
+              <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
+              <li>
+                <router-link @click.native="closeDropdown" to="/projects/qualmanagement">
+                  Qual Management Demo
                 </router-link>
               </li>
             </ul>

@@ -8,6 +8,8 @@ import AerialClassificationView from "@/view/project/AerialClassificationView.vu
 import CryptographyView from "@/view/project/CryptographyView.vue";
 import GameView from "@/view/project/GameView.vue";
 import DungeonGameView from "@/view/dungeon/DungeonGameView.vue";
+import QualManagementView from "@/view/qual_management_demo/QualManagementView.vue";
+import AlgorithmsView from "@/view/algorithms/AlgorithmsView.vue";
 
 const routes = [
     {
@@ -54,6 +56,16 @@ const routes = [
         path: "/projects/dungeon",
         name: "DungeonGame",
         component: DungeonGameView
+    },
+    {
+        path: "/projects/qualmanagement",
+        name: "QualManagement",
+        component: QualManagementView
+    },
+    {
+        path: "/projects/algorithms",
+        name: "Algorithms Animations",
+        component: AlgorithmsView
     }
 ];
 

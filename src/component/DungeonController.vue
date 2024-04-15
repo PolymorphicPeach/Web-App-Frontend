@@ -1,23 +1,11 @@
 <script>
 export default {
   name: "DungeonController",
-  components: {
-    // Intentionally blank
-  },
   data(){
     return{
       visible: false,
       selectedUnit: "",
     }
-  },
-  beforeMount(){
-
-  },
-  mounted(){
-
-  },
-  beforeUnmount(){
-
   },
   methods: {
     toggleVisibility(){

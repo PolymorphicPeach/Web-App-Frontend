@@ -37,7 +37,8 @@ export default{
           );
           const imageBytes = response.data;
           this.staticMapSrc = `data:image/png;base64,${btoa(String.fromCharCode.apply(null, new Uint8Array(imageBytes)))}`;
-        } catch (error) {
+        }
+        catch (error) {
           console.error("Error sending data to backend: ", error);
         }
       }

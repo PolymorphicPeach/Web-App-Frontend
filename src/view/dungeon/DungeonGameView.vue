@@ -202,7 +202,6 @@ export default {
           wall.getMesh().position.y += 0.5;
           this.walls.push(wall);
           return wall;
-          break;
 
         case "Devil":
           const devil = new GLBModel(
@@ -214,7 +213,6 @@ export default {
           devil.setAnimation("Idle");
           this.actors.push(devil);
           return devil;
-          break;
 
         default:
           return null;
@@ -222,7 +220,6 @@ export default {
     },
     setSelectedUnit(selectedUnit){
       this.selectedUnit = selectedUnit;
-      console.log(this.selectedUnit);
     },
   }
 }

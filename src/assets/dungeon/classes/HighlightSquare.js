@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import DungeonItemBase from "@/assets/dungeon/classes/DungeonItemBase.js";
 
 export default class HighlightSquare{
     constructor(
@@ -20,7 +19,4 @@ export default class HighlightSquare{
         this.mesh.rotateX(-Math.PI / 2);
         this.mesh.position.set(0.5 * width, 0, 0.5 * height);
     }
-
-    // @Override
-
 }

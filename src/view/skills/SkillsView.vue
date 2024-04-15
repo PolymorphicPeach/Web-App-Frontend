@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import Chart from "chart.js/auto";
-import ProjectsView from "@/view/ProjectsView.vue"
+import ProjectsView from "@/view/projects/ProjectsView.vue"
 
 export default{
   name: "SkillsView",

@@ -67,27 +67,23 @@ export default{
                 <router-link to="/projects">
                   Projects
                 </router-link>
-                <div class="items-center absolute rounded-b-lg p-1 bg-peach-black p-2 invisible group-hover:visible w-auto">
-                  <router-link to="/projects/aerial">
+                <div class="grid grid-rows-6 gap-2 absolute rounded-b-lg p-2 bg-peach-black invisible group-hover:visible w-[250px]">
+                  <router-link to="/projects/aerial" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Aerial Image Classifier
                   </router-link>
-                  <hr class="border-t mx-2 border-grey-light">
-                  <router-link to="/projects/cryptography">
+                  <router-link to="/projects/cryptography" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Cryptography
                   </router-link>
-                  <hr class="border-t mx-2 border-grey-light">
-                  <router-link to="/projects/game">
-                    Game
+                  <router-link to="/projects/game" class="hover:bg-peach-peach hover:text-black transition duration-300">
+                    Projects Island
                   </router-link>
-                  <hr class="border-t mx-2 border-grey-light">
-                  <router-link to="/projects/dungeon">
+                  <router-link to="/projects/dungeon" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Dungeon Game
                   </router-link>
-                  <hr class="border-t mx-2 border-grey-light">
-                  <router-link to="/projects/qualmanagement">
+                  <router-link to="/projects/qualmanagement" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Qual Management Demo
                   </router-link>
-                  <router-link to="/projects/algorithms">
+                  <router-link to="/projects/algorithms" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Algorithm Animations
                   </router-link>
                 </div>

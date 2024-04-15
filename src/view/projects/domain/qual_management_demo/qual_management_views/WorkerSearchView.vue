@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import SearchResultView from "@/view/qual_management_demo/qual_management_views/SearchResultView.vue";
+import SearchResultView from "@/view/projects/domain/qual_management_demo/qual_management_views/SearchResultView.vue";
 
 export default {
   name: "WorkerSearchView",

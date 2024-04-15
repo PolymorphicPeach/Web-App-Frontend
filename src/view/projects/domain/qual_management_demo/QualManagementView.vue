@@ -1,7 +1,7 @@
 <script>
-import QualManagementNavBar from "@/view/qual_management_demo/navigation/QualManagementNavBar.vue";
-import WorkerSearchView from "@/view/qual_management_demo/qual_management_views/WorkerSearchView.vue";
-import AboutView from "@/view/qual_management_demo/qual_management_views/AboutView.vue";
+import QualManagementNavBar from "@/view/projects/domain/qual_management_demo/navigation/QualManagementNavBar.vue";
+import WorkerSearchView from "@/view/projects/domain/qual_management_demo/qual_management_views/WorkerSearchView.vue";
+import AboutView from "@/view/projects/domain/qual_management_demo/qual_management_views/AboutView.vue";
 
 export default{
   name: "QualManagementView",

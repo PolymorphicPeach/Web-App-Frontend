@@ -1,5 +1,5 @@
 <script>
-import CaesarCipher from "@/component/CaesarCipher.vue";
+import CaesarCipher from "@/view/projects/domain/cryptography/component/CaesarCipher.vue";
 
 export default{
   name: "CryptographyView",

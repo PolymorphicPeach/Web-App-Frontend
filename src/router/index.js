@@ -1,15 +1,15 @@
 import {createRouter, createWebHistory} from "vue-router"
-import HomeView from "@/view/HomeView.vue";
-import ContactView from "@/view/ContactView.vue";
-import ResumeView from "@/view/ResumeView.vue";
-import SkillsView from "@/view/SkillsView.vue";
-import ProjectsView from "@/view/ProjectsView.vue";
-import AerialClassificationView from "@/view/project/AerialClassificationView.vue";
-import CryptographyView from "@/view/project/CryptographyView.vue";
-import GameView from "@/view/project/GameView.vue";
-import DungeonGameView from "@/view/dungeon/DungeonGameView.vue";
-import QualManagementView from "@/view/qual_management_demo/QualManagementView.vue";
-import AlgorithmsView from "@/view/algorithms/AlgorithmsView.vue";
+import HomeView from "@/view/home/HomeView.vue";
+import ContactView from "@/view/contact/ContactView.vue";
+import ResumeView from "@/view/resume/ResumeView.vue";
+import SkillsView from "@/view/skills/SkillsView.vue";
+import ProjectsView from "@/view/projects/ProjectsView.vue";
+import AerialClassificationView from "@/view/projects/domain/aerial_classification/AerialClassificationView.vue";
+import CryptographyView from "@/view/projects/domain/cryptography/CryptographyView.vue";
+import GameView from "@/view/projects/domain/island/GameView.vue";
+import DungeonGameView from "@/view/projects/domain/dungeon/DungeonGameView.vue";
+import QualManagementView from "@/view/projects/domain/qual_management_demo/QualManagementView.vue";
+import AlgorithmsView from "@/view/projects/domain/algorithms/AlgorithmsView.vue";
 
 const routes = [
     {

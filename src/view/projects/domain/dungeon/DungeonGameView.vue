@@ -5,10 +5,10 @@ import Floor from '@/assets/dungeon/classes/Floor.js'
 import HighlightSquare from "@/assets/dungeon/classes/HighlightSquare.js";
 import Wall from "@/assets/dungeon/classes/Wall.js";
 import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
-import DungeonController from "@/component/DungeonController.vue";
+import DungeonController from "@/view/projects/domain/dungeon/component/DungeonController.vue";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import GLBModel from "@/assets/dungeon/classes/GLBModel.js";
-import WorkInProgress from "@/component/WorkInProgress.vue"
+import WorkInProgress from "@/view/projects/domain/dungeon/component/WorkInProgress.vue"
 
 export default {
   name: "DungeonGameView",

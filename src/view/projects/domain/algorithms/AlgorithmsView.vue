@@ -1,6 +1,6 @@
 <script>
-import GridWindow from "@/view/algorithms/grid/GridWindow.vue";
-import DepthFirstSearchController from "@/view/algorithms/component/DepthFirstSearchController.vue";
+import GridWindow from "@/view/projects/domain/algorithms/grid/GridWindow.vue";
+import DepthFirstSearchController from "@/view/projects/domain/algorithms/component/DepthFirstSearchController.vue";
 
 export default{
   name: "AlgorithmsView",

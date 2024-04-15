@@ -1,6 +1,6 @@
 <script>
-import EldritchScene from "@/component/EldritchScene.vue"
-import HomeScene from "@/component/HomeScene.vue";
+import EldritchScene from "@/view/home/component/EldritchScene.vue"
+import HomeScene from "@/view/home/component/HomeScene.vue";
 export default {
   name: "HomeView",
   components: {

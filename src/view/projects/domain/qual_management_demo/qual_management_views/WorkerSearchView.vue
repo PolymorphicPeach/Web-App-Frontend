@@ -49,8 +49,6 @@ export default {
       try{
         const response = await axios.post(backendURL, searchCriteria);
         this.searchResults = response.data;
-
-        console.log(response.data);
       }
       catch(error){
         console.log("Error performing advanced worker search: ", error);
@@ -71,15 +69,16 @@ export default {
     },
     mapToArray(map){
       return Object.entries(map).map(([name, id]) => ({name, id}));
-    }
+    },
   }
 }
 </script>
 
 <template>
-  <h1>Worker Search View</h1>
-
   <div class="grid grid-rows-3 justify-start bg-teal-300 p-8 m-6">
+    <div>
+      <p class="text-2xl"><u>Worker Management</u></p>
+    </div>
 
     <div class="grid grid-cols-2 p-3">
       <div>
@@ -91,7 +90,6 @@ export default {
         <input id="last-name-input" v-model="enteredLastName" placeholder="Enter last name">
       </div>
     </div>
-
 
     <div class="grid grid-cols-3 p-3">
       <div>
@@ -125,7 +123,6 @@ export default {
     <div class="p-2">
       <button type="submit" class="pt-1 pb-1 pl-2 pr-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300" @click="advancedSearch()">Search</button>
     </div>
-
   </div>
 
   <SearchResultView :search-results="searchResults"/>

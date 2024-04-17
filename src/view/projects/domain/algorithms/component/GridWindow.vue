@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import HighlightSquare from "@/assets/dungeon/classes/HighlightSquare.js";
-import Grid from "@/assets/grid/Grid.js";
+import Grid from "@/view/projects/domain/algorithms/js/grid/Grid.js";
 
 export default{
   name: "GridWindow",
@@ -22,8 +22,8 @@ export default{
   },
   computed:{
     computedSleepTime(){
-      const maxSleep = 10000;
-      const minSleep = 10;
+      const maxSleep = 1000;
+      const minSleep = 1;
       return maxSleep - ((this.speedSliderValue / 100) * (maxSleep - minSleep));
     }
   },
@@ -50,7 +50,6 @@ export default{
   methods:{
     animate(){
       requestAnimationFrame(this.animate);
-      const time = performance.now() / 3000;
 
       this.renderer.render(this.scene, this.camera);
     },
@@ -89,10 +88,10 @@ export default{
       this.scene.add(hemisphereLight);
     },
     populateScene(){
-      this.grid = new Grid(this.gridSize);
+      this.grid = new Grid(this.gridSize, this.computedSleepTime);
       this.scene.add(this.grid.gridGroup);
-      this.scene.add(this.grid.cubeGroup);
-      this.scene.add(this.grid.markerGroup);
+      this.scene.add(this.grid.permGroup);
+      this.scene.add(this.grid.tempGroup);
 
       this.selectorSquare = new HighlightSquare();
       this.scene.add(this.selectorSquare.mesh);
@@ -142,28 +141,26 @@ export default{
       if(intersects){
         intersects.forEach(intersect => {
           if(intersect.object.name === "gridMesh"){
-            this.grid.addObject(this.inserting, intersect);
+            this.grid.addPermPlacement(this.inserting, intersect.point);
           }
         })
       }
     },
     resetGrid(){
       // Remove group from scene to safely delete
-      this.scene.remove(this.grid.cubeGroup);
-      this.scene.remove(this.grid.markerGroup);
+      this.scene.remove(this.grid.tempGroup);
+      this.scene.remove(this.grid.permGroup);
       // Delete
-      this.grid.deleteCubes();
-      this.grid.deleteMarkers();
+      this.grid.deleteTempPlacements();
+      this.grid.deletePermPlacements();
       // Put the cleared group back into the scene
-      this.scene.add(this.grid.cubeGroup);
-      this.scene.add(this.grid.markerGroup);
+      this.scene.add(this.grid.tempGroup);
+      this.scene.add(this.grid.permGroup);
     },
     startAlgorithm(){
-      this.grid.depthFirstSearch();
+      this.grid.beginDepthFirstSearch();
     },
     changeSpeed(){
-      console.log(this.speedSliderValue);
-      console.log(this.computedSleepTime);
       this.grid.sleepTime = this.computedSleepTime;
     }
   }

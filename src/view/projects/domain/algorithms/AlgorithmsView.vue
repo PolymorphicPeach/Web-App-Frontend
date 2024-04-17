@@ -1,5 +1,5 @@
 <script>
-import GridWindow from "@/view/projects/domain/algorithms/grid/GridWindow.vue";
+import GridWindow from "@/view/projects/domain/algorithms/component/GridWindow.vue";
 import DepthFirstSearchController from "@/view/projects/domain/algorithms/component/DepthFirstSearchController.vue";
 
 export default{
@@ -17,8 +17,6 @@ export default{
   },
   methods: {
     setMode(mode){
-      console.log("Algorithms View: mode = " + this.mode);
-      console.log("Algorithms View: inserting = " + this.inserting);
       this.mode = mode;
     },
     setInserting(inserting){

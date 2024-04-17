@@ -2,6 +2,7 @@
 import QualManagementNavBar from "@/view/projects/domain/qual_management_demo/navigation/QualManagementNavBar.vue";
 import WorkerSearchView from "@/view/projects/domain/qual_management_demo/qual_management_views/WorkerSearchView.vue";
 import AboutView from "@/view/projects/domain/qual_management_demo/qual_management_views/AboutView.vue";
+import AddWorkerView from "@/view/projects/domain/qual_management_demo/qual_management_views/AddWorkerView.vue";
 
 export default{
   name: "QualManagementView",
@@ -9,6 +10,7 @@ export default{
     QualManagementNavBar: QualManagementNavBar,
     AboutView: AboutView,
     WorkerSearchView: WorkerSearchView,
+    AddWorkerView: AddWorkerView,
 
   },
   data(){
@@ -34,14 +36,16 @@ export default{
 <template>
   <QualManagementNavBar @change-view="changeView"/>
 
-  <h1>Qual management</h1>
-
   <div v-if="currentView === 'about'">
     <AboutView/>
   </div>
 
   <div v-if="currentView === 'worker-search'">
     <WorkerSearchView/>
+  </div>
+
+  <div v-if="currentView === 'add-worker'">
+    <AddWorkerView/>
   </div>
 
 </template>

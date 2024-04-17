@@ -67,7 +67,7 @@ export default{
                 <router-link to="/projects">
                   Projects
                 </router-link>
-                <div class="grid grid-rows-6 gap-2 absolute rounded-b-lg p-2 bg-peach-black invisible group-hover:visible w-[250px]">
+                <div class="grid grid-rows-5 gap-2 absolute rounded-b-lg p-2 bg-peach-black invisible group-hover:visible w-[250px]">
                   <router-link to="/projects/aerial" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Aerial Image Classifier
                   </router-link>
@@ -77,9 +77,9 @@ export default{
                   <router-link to="/projects/game" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Projects Island
                   </router-link>
-                  <router-link to="/projects/dungeon" class="hover:bg-peach-peach hover:text-black transition duration-300">
-                    Dungeon Game
-                  </router-link>
+<!--                  <router-link to="/projects/dungeon" class="hover:bg-peach-peach hover:text-black transition duration-300">-->
+<!--                    Dungeon Game-->
+<!--                  </router-link>-->
                   <router-link to="/projects/qualmanagement" class="hover:bg-peach-peach hover:text-black transition duration-300">
                     Qual Management Demo
                   </router-link>
@@ -134,15 +134,21 @@ export default{
                 </router-link>
               </li>
               <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
+<!--              <li>-->
+<!--                <router-link @click.native="closeDropdown" to="/projects/dungeon">-->
+<!--                  Dungeon Game-->
+<!--                </router-link>-->
+<!--              </li>-->
+              <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
               <li>
-                <router-link @click.native="closeDropdown" to="/projects/dungeon">
-                  Dungeon Game
+                <router-link @click.native="closeDropdown" to="/projects/qualmanagement">
+                  Qual Management Demo
                 </router-link>
               </li>
               <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
               <li>
                 <router-link @click.native="closeDropdown" to="/projects/qualmanagement">
-                  Qual Management Demo
+                  DFS Animation
                 </router-link>
               </li>
             </ul>

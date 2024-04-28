@@ -15,37 +15,32 @@ export default{
 </script>
 
 <template>
-
-
-  <nav class="bg-peach-peach border-gray-200">
-    <h1 class="ml-10 text-2xl">Qualification Management Demo</h1>
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <!-- Mobile Menu Button and others unchanged -->
-      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-        <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-          <li>
-            <button @click="$emit('change-view', 'about')"
-                    class="block py-2 px-3 text-white bg-peach-black rounded">
-              About</button>
-          </li>
-          <li>
-            <button @click="$emit('change-view', 'add-worker')"
-                    class="block py-2 px-3 text-white bg-peach-black rounded">
-              Add Workers
-            </button>
-          </li>
-          <li>
-            <button @click="$emit('change-view', 'worker-search')"
-                    class="block py-2 px-3 text-white bg-peach-black rounded">
-              Worker Management
-            </button>
-          </li>
-        </ul>
+  <nav class="bg-peach-peach">
+    <h1 class="text-xl md:text-2xl mb-2 ml-2">Qualification Management Demo</h1>
+    <div class="w-3/4 flex flex-cols-3 justify-left gap-4 mx-4">
+      <div>
+        <button @click="$emit('change-view', 'about')"
+                class="text-white text-sm md:text-md bg-peach-black rounded p-2">
+          About
+        </button>
       </div>
+
+      <div>
+        <button @click="$emit('change-view', 'add-worker')"
+                class="text-white text-sm md:text-md bg-peach-black rounded p-2">
+          Add Workers
+        </button>
+      </div>
+
+      <div>
+        <button @click="$emit('change-view', 'worker-search')"
+                class="text-white text-sm md:text-md bg-peach-black rounded p-2">
+          Worker Management
+        </button>
+      </div>
+
     </div>
   </nav>
-
-
 
 </template>
 

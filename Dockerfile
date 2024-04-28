@@ -3,6 +3,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY ./ .
+
+# Copy the specific .env.production file and rename it to .env for the build
+COPY .env.production ./.env
+
 RUN npm run build
 
 FROM nginx as production-stage

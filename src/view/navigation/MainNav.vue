@@ -95,7 +95,7 @@ export default{
         <!---------------- END of code for Medium and Larger screens ------------------------>
 
         <!---------------- START of code for Small screens ------------------------>
-        <nav class="flex md:hidden ml-3 md:ml-12 h-full">
+        <nav class="flex md:hidden ml-3 md:ml-12 h-full w-full">
           <!-- list-none == Do not add dots next to list elements -->
           <ul class="flex h-full list-none text-md md:text-lg text-white">
             <!-- v-for == Vue for-loop -->
@@ -139,7 +139,6 @@ export default{
 <!--                  Dungeon Game-->
 <!--                </router-link>-->
 <!--              </li>-->
-              <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
               <li>
                 <router-link @click.native="closeDropdown" to="/projects/qualmanagement">
                   Qual Management Demo
@@ -147,8 +146,8 @@ export default{
               </li>
               <hr class="border-t mx-2 pt-2 pb-2 border-peach-pink">
               <li>
-                <router-link @click.native="closeDropdown" to="/projects/qualmanagement">
-                  DFS Animation
+                <router-link @click.native="closeDropdown" to="/projects/algorithms">
+                  DFS/BFS Animation
                 </router-link>
               </li>
             </ul>

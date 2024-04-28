@@ -158,7 +158,14 @@ export default{
       this.scene.add(this.grid.permGroup);
     },
     startAlgorithm(){
-      this.grid.beginDepthFirstSearch();
+      if(this.mode === "dfsFind"){
+        this.grid.beginDepthFirstSearch();
+      }
+      else if(this.mode === "bfsFind"){
+        this.grid.beginBreadthFirstSearch();
+      }
+
+
     },
     changeSpeed(){
       this.grid.sleepTime = this.computedSleepTime;
@@ -170,38 +177,43 @@ export default{
 <template>
   <div class="grid grid-rows-12 w-full h-full">
 
-    <div id="sceneContainer" class="row-span-11 col-span-2 w-full h-full">
+    <div id="sceneContainer" class="row-span-11 w-full">
 
     </div>
 
-    <div class="row-span-1 grid grid-cols-3 ml-5 mt-1 gap-4">
-      <div class="col-span-1">
+    <div class="flex flex-cols">
+      <div>
         <button
             type="submit"
-            class="bg-red-400 text-white p-2 rounded-md hover:bg-red-600 transition duration-300"
-            @click="resetGrid">
-          Reset Grid
-        </button>
-      </div>
-
-      <div class="col-span-1">
-        <button
-            type="submit"
-            class="bg-red-400 text-white p-2 rounded-md hover:bg-red-600 transition duration-300"
+            class="bg-green-600 text-white p-2 rounded-md hover:bg-green-900 transition duration-300"
             @click="startAlgorithm">
           Start
         </button>
       </div>
 
-      <div class="col-span-1">
-        <label for="speed" class="block mb-1 text-sm font-medium">Algorithm Speed</label>
+      <div>
+        <button
+            type="submit"
+            class="bg-red-400 text-white p-2 rounded-md hover:bg-red-600 transition duration-300"
+            @click="resetGrid">
+          Reset
+        </button>
+      </div>
+
+      <div>
+        <label for="speed" class="block text-sm font-medium">Algorithm Speed</label>
+      </div>
+
+      <div>
         <input id="speed" type="range" value="500" min="0" max="100"
-               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+               class="bg-cyan-400 h-2 rounded-lg appearance-none cursor-pointer"
                v-model="speedSliderValue"
                @input="changeSpeed">
       </div>
 
     </div>
+
+
   </div>
 
 

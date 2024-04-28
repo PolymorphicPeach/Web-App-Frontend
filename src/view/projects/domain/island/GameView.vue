@@ -225,12 +225,25 @@ export default{
       meta.name = "viewport";
       meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       document.head.appendChild(meta);
+
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('touchend', function(e) {
+          // Mobile users can't highlight text in buttons
+          e.preventDefault();
+        });
+      });
+
     },
     removeMobileRestrictions(){
       const meta = document.querySelector("meta[name='viewport']");
       if(meta){
         document.head.removeChild(meta);
       }
+      document.querySelectorAll('button').forEach(button => {
+        button.removeEventListener('touchend', function(e) {
+          e.preventDefault();
+        });
+      });
     },
     loadPlayer(){
       this.playerImage = new Image();

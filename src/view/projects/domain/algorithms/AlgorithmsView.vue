@@ -10,7 +10,7 @@ export default{
   },
   data(){
     return{
-      mode: "ShortestPath",
+      mode: "dfsFind",
       inserting: "Start",
       reset: false,
     }
@@ -29,19 +29,14 @@ export default{
 
 <template>
   <div class="grid grid-cols-2 grid-rows-12 w-screen h-screen">
-    <div class="col-span-2 row-span-10">
+    <div class="col-span-2 row-span-8 md:row-span-10">
       <GridWindow v-bind:mode="mode" v-bind:inserting="inserting"/>
     </div>
 
-    <div>
+    <div class="col-span-2 row-span-4 md:row-span-2">
       <DepthFirstSearchController @mode="setMode" @inserting="setInserting"/>
     </div>
   </div>
-
-<!--  <div class="relative flex z-0 justify-center h-screen w-screen">-->
-<!--    <GridWindow/>-->
-<!--    <DepthFirstSearchController/>-->
-<!--  </div>-->
 </template>
 
 <style scoped>

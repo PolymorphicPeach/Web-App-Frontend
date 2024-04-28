@@ -119,7 +119,7 @@ export default{
 </script>
 
 <template>
-  <div class="grid grid-rows-10 bg-teal-300 gap-4 m-4 p-4">
+  <div class="grid grid-rows-10 bg-teal-300 gap-3 m-4 p-4">
     <div>
       <p class="text-2xl"><u>Add Workers</u></p>
     </div>
@@ -162,21 +162,21 @@ export default{
     </div>
 
     <div>
-      <button type="submit" class="pt-1 pb-1 pl-2 pr-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300"
+      <button type="submit" class="px-2 py-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300"
               @click="addWorker">
         Add Worker
       </button>
     </div>
 
     <div>
-      <button type="submit" class="pt-1 pb-1 pl-2 pr-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300"
+      <button type="submit" class="px-2 py-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300"
               @click="addRandomWorkers">
         Add 20 random workers
       </button>
     </div>
 
     <div>
-      <button type="submit" class="pt-1 pb-1 pl-2 pr-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300"
+      <button type="submit" class="px-2 py-2 rounded-md bg-pink-100 hover:bg-pink-400 transition duration-300"
               @click="deleteAllWorkers">
         Delete All Workers
       </button>

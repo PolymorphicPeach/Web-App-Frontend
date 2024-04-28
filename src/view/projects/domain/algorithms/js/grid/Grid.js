@@ -170,7 +170,7 @@ export default class Grid{
 
     setStartPlacement(cellCoords, intersectionPoint){
         if(this.startPlacement){
-            this.cells.set(cellCoords, 0);
+            this.cells.set(this.worldToCell_coordinateConversion(this.startPlacement.position), 0);
             this.permGroup.remove(this.startPlacement);
 
             if(this.startPlacement.geometry){
@@ -200,7 +200,7 @@ export default class Grid{
 
     setGoalPlacement(cellCoords, intersectionPoint){
         if(this.goalPlacement){
-            this.cells.set(cellCoords, 0);
+            this.cells.set(this.worldToCell_coordinateConversion(this.goalPlacement.position), 0);
             this.permGroup.remove(this.goalPlacement);
 
             if(this.goalPlacement.geometry){
@@ -352,6 +352,81 @@ export default class Grid{
             }
             if(z > 0){
                 await this.depthFirstSearch(x, z - 1, visited, step);
+            }
+        }
+    }
+
+    beginBreadthFirstSearch(){
+        // Just delete all temporary placements and start over
+        if(this.busy){
+            this.deleteTempPlacements();
+        }
+
+        this.resetGoalIndicator();
+
+        // set busy
+        this.busy = true;
+
+        if(this.startPlacement){
+            const startX = Math.round(this.startPlacement.position.x + this.size / 2 - 1);
+            const startZ = Math.round(this.startPlacement.position.z + this.size / 2 - 1);
+
+            // No longer busy when done
+            this.breadthFirstSearch(startX, startZ)
+                .then(r => this.busy = false);
+        }
+        else{
+            this.breadthFirstSearch(0, 0).then(r => this.busy = false);
+        }
+    }
+
+    async breadthFirstSearch(startX, startZ) {
+        if (this.busy) {
+            let queue = [];
+            let visited = new Map();
+            let step = 0;
+            const startKey = `${startX},${startZ}`;
+
+            queue.push({ x: startX, z: startZ, step });
+            visited.set(startKey, true);
+
+            while (queue.length > 0) {
+                let { x, z, step } = queue.shift();
+                const key = `${x},${z}`;
+
+                // ===== Early Returns ========
+                // Goal found
+                if (this.cells.get(key) == 2) {
+                    this.goalFound();
+                    return;
+                }
+                // Obstacle hit
+                if (this.cells.get(key) < 0) {
+                    continue;
+                }
+                // ===========================
+
+                this.setVisitedMarker(x, z, step);
+
+                // Slow down
+                await this.sleep();
+
+                // Prepare next steps
+                step += 1;
+                const directions = [
+                    { x: x + 1, z: z },    // Right
+                    { x: x - 1, z: z },    // Left
+                    { x: x, z: z + 1 },    // Down
+                    { x: x, z: z - 1 }     // Up
+                ];
+
+                directions.forEach(({ x, z }) => {
+                    const adjKey = `${x},${z}`;
+                    if (x >= 0 && x < this.size && z >= 0 && z < this.size && !visited.get(adjKey) && this.cells.get(adjKey) >= 0) {
+                        queue.push({ x, z, step });
+                        visited.set(adjKey, true);
+                    }
+                });
             }
         }
     }

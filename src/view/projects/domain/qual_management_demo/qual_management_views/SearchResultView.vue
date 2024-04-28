@@ -113,7 +113,6 @@ export default{
 </script>
 
 <template>
-  <p>{{this.selectedQualifications}}</p>
   <!-- Probably refactor later -->
   <div class="grid grid-rows-3 grid-cols-2 m-6 p-2 bg-peach-peach">
     <div class="row-span-1 col-span-1 p-2">

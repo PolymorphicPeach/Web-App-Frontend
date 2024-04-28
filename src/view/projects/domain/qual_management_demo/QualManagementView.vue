@@ -34,19 +34,23 @@ export default{
 
 
 <template>
-  <QualManagementNavBar @change-view="changeView"/>
+  <div class="w-full h-full">
+    <QualManagementNavBar @change-view="changeView"/>
 
-  <div v-if="currentView === 'about'">
-    <AboutView/>
+    <div v-if="currentView === 'about'">
+      <AboutView/>
+    </div>
+
+    <div v-if="currentView === 'worker-search'">
+      <WorkerSearchView/>
+    </div>
+
+    <div v-if="currentView === 'add-worker'">
+      <AddWorkerView/>
+    </div>
   </div>
 
-  <div v-if="currentView === 'worker-search'">
-    <WorkerSearchView/>
-  </div>
 
-  <div v-if="currentView === 'add-worker'">
-    <AddWorkerView/>
-  </div>
 
 </template>
 

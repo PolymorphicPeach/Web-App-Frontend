@@ -106,20 +106,61 @@ export default{
 </script>
 
 <template>
-  <div class="md:container mx-auto mt-1">
+<!--  <div class="md:container mx-auto mt-1">-->
+<!--    &lt;!&ndash; Row 1: Form and Map &ndash;&gt;-->
+<!--    <div class="flex flex-col md:flex-row gap-1">-->
+<!--      &lt;!&ndash; Column 1: Longitude/Latitude form &ndash;&gt;-->
+<!--      <div class="md:w-1/2">-->
+<!--        <div class="max-w-md mx-auto p-6 bg-peach-black rounded-md shadow-md">-->
+<!--          <form ref="locationForm" @submit.prevent="getMap">-->
+<!--            <div class="mb-4">-->
+<!--              <label for="latitude" class="block text-peach-peach text-sm font-bold mb-2">latitude:</label>-->
+<!--              <input v-model="latitude" type="number" id="latitude" name="latitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>-->
+<!--              <p class="text-peach-peach text-xs mt-1">Valid range: -90 to 90</p>-->
+<!--            </div>-->
+<!--            <div class="mb-4">-->
+<!--              <label for="longitude" class="block text-peach-peach text-sm font-bold mb-2">longitude:</label>-->
+<!--              <input v-model="longitude" type="number" id="longitude" name="longitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>-->
+<!--              <p class="text-peach-peach text-xs mt-1">Valid range: -180 to 180</p>-->
+<!--            </div>-->
+<!--            <div v-if="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>-->
+<!--            <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Show Location</button>-->
+<!--          </form>-->
+<!--          <form @submit.prevent="submitForPrediction" class="mt-2">-->
+<!--            <button type="submit" class="w-full bg-peach-pink text-peach-black p-3 rounded-md hover:bg-peach-peach transition duration-300">Get Prediction</button>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      &lt;!&ndash; Column 2: Static map display &ndash;&gt;-->
+<!--      <div class="w-full bg-red-500 md:w-1/2  h-min-[300px]">-->
+<!--        <div class="flex items-center justify-center h-full">-->
+<!--          <img class="w-full h-full" :src="staticMapSrc"/>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Row 2: Chart &ndash;&gt;-->
+<!--    <div class="flex flex-col md:flex-row gap-1">-->
+<!--      <div class="w-full max-h-[500px] mx-auto">-->
+<!--        <canvas id="chartCanvas"></canvas>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+  <div class="flex flex-wrap mt-1 mx-auto md:container">
     <!-- Row 1: Form and Map -->
-    <div class="flex flex-col md:flex-row gap-1">
+    <div class="flex flex-col md:flex-row gap-1 w-full">
       <!-- Column 1: Longitude/Latitude form -->
-      <div class="md:w-1/2">
+      <div class="flex-1">
         <div class="max-w-md mx-auto p-6 bg-peach-black rounded-md shadow-md">
           <form ref="locationForm" @submit.prevent="getMap">
             <div class="mb-4">
-              <label for="latitude" class="block text-peach-peach text-sm font-bold mb-2">latitude:</label>
+              <label for="latitude" class="block text-peach-peach text-sm font-bold mb-2">Latitude:</label>
               <input v-model="latitude" type="number" id="latitude" name="latitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
               <p class="text-peach-peach text-xs mt-1">Valid range: -90 to 90</p>
             </div>
             <div class="mb-4">
-              <label for="longitude" class="block text-peach-peach text-sm font-bold mb-2">longitude:</label>
+              <label for="longitude" class="block text-peach-peach text-sm font-bold mb-2">Longitude:</label>
               <input v-model="longitude" type="number" id="longitude" name="longitude" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 appearance-none" step="any" required>
               <p class="text-peach-peach text-xs mt-1">Valid range: -180 to 180</p>
             </div>
@@ -132,19 +173,22 @@ export default{
         </div>
       </div>
       <!-- Column 2: Static map display -->
-      <div class="md:w-1/2">
+      <div class="flex-1 min-h-[300px]">
         <div class="flex items-center justify-center h-full">
-          <img class="w-full h-full" :src="staticMapSrc"/>
+          <img :src="staticMapSrc" class="max-w-full max-h-full object-cover">
         </div>
       </div>
     </div>
     <!-- Row 2: Chart -->
-    <div class="flex flex-col md:flex-row gap-1">
+    <div class="flex flex-col md:flex-row gap-1 w-full">
       <div class="w-full max-h-[500px] mx-auto">
         <canvas id="chartCanvas"></canvas>
       </div>
     </div>
   </div>
+
+
+
 </template>
 
 <style scoped>
